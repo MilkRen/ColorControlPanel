@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ColorsControlPanel
 {
@@ -24,34 +25,61 @@ namespace ColorsControlPanel
         public MainWindow()
         {
             InitializeComponent();
+
+
+            CloseBtn.Click += (s, e) =>
+            {
+                Application.Current.Shutdown();
+            };
+
+            MinimizeBtn.Click += (s, e) =>
+            {
+                this.WindowState = WindowState.Minimized;
+            };
+
+
+
+            ColorCanvasRun();
+
+
             string hex = "#FFFFFF";
             var color = ColorTranslator.FromHtml(hex);
             //tb1.Text = $"R: {color.R} G: {color.B} B: {color.G}";
-            TbVoi();
+            MainColorCanvas.SelectedColor = Colors.Black;
+            NameVersionTB.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
 
 
         }
 
-        async void TbVoi()
+        async void ColorCanvasRun()
         {
-            //await Task.Run(() => {
-            //     while (true)
-            //    {
-            //        this.Dispatcher.Invoke(() =>
-            //        {
-            //        tb1.Text = $"R: {CV.R} G: {CV.B} B: {CV.G}";
-            //        });
-            //    }
-            //});
-  
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        // HilightPolygon.Fill = MainColorCanvas.SelectedColor.Value;
+                    });
+                }
+            });
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //if (e.ChangedButton == MouseButton.Left)
-            //{
-            //     this.DragMove(); 
-            //}
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void ToolBarGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 }

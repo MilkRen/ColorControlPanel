@@ -6,31 +6,31 @@
         xmlns:local="clr-namespace:ColorsControlPanel"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Border Background="#2C2F36" MouseDown="Border_MouseDown" >
+        Title="MainWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Source/Logo.png">
+    <Border Background="#2C2F36" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" x:Name="ToolBarGrid" Background="#292b2f">
+            <Grid Grid.Row="0" x:Name="ToolBarGrid" Background="#232529" MouseDown="ToolBarGrid_MouseDown">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource ButtonToolBar}">
+                    <Button x:Name="MinimizeBtn" Style="{StaticResource ButtonToolBar}">
                         <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Minimize.png" >
                             <Image.Effect>
                                 <BlurEffect Radius="0.2"/>
                             </Image.Effect>
                         </Image>
                     </Button>
-                    <Button Style="{StaticResource ButtonToolBar}">
+                    <Button x:Name="MaximizeBtn" Style="{StaticResource ButtonToolBar}">
                         <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Maximize.png">
                             <Image.Effect>
                                 <BlurEffect Radius="0.2"/>
                             </Image.Effect>
                         </Image>
                     </Button>
-                    <Button Style="{StaticResource ButtonToolBar}">
+                    <Button x:Name="CloseBtn" Style="{StaticResource ButtonToolBar}">
                         <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Close.png" >
                             <Image.Effect>
                                 <BlurEffect Radius="0.2"/>
@@ -39,7 +39,8 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+                    <Image Width="20" Height="20" Source="/Source/Logo.png" />
                     <TextBlock Text="ColorPanelControl" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Medium" Margin="5"/>
                 </StackPanel>
             </Grid>
@@ -50,17 +51,110 @@
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <xctk:ColorCanvas  Width="240" x:Name="CV" UsingAlphaChannel="False" Background="#17181C" Foreground="White"/>
-                </Grid>
-                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                    <Image Source="/Source/Samples/Screen.png"/>
-                    <Grid x:Name="BoxColor" Margin="71,100,30,111" >
-                        <Polygon Fill="Black" StrokeThickness="1" Points="0,8,0,190,190,190,190,8" Stroke="Black" Opacity="0.5"/>
-                        <Polygon Fill="#292b2f" StrokeThickness="0" Points="0,8,0,190,190,190,190,8" Stroke="Black"  Opacity="0.5"/>
-                        <Image Source="/Source/Other/cursor.png" Width="12" Height="12" Margin="-2,191,189,6" />
-                    </Grid>
+                <Grid Grid.Column="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="290"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                    <xctk:ColorCanvas Grid.Row="0" x:Name="MainColorCanvas" UsingAlphaChannel="False" Background="#17181C" Foreground="White" BorderThickness="1" BorderBrush="White" />
+                    <!--TextBox Grid.Row="0" Background="Transparent" Foreground="White" BorderThickness="0" Margin="109,134,84,134" VerticalAlignment="Center"/-->
+                    <TextBox x:Name="InputRGBTB" Background="Transparent" Margin="109,134,87,134" VerticalAlignment="Center" Foreground="#f3f1f1" BorderBrush="Transparent"/>
+                    <TextBlock IsHitTestVisible="False"  FontSize="16" Margin="109,134,87,134" VerticalAlignment="Center" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=InputRGBTB}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
+                    <Grid Grid.Row="1" x:Name="MainBtnGrid">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="HilightBtn" Style="{StaticResource ButtonSamplesAndMain}" Content="Hilight" />
+                            <Button x:Name="HotTrackingColorBtn" Style="{StaticResource ButtonSamplesAndMain}" Content="HotTrackingColor"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Grid x:Name="SamplesBtnGrid" Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Separator Grid.Row="0" Margin="5" Height="2" Background="White" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="0" Text="Samples" TextDecorations="Underline" Foreground="White" FontWeight="Medium" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource ButtonScreen}" VerticalAlignment="Bottom" Width="40" Height="20">
+                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Back.png">
+                                    <Image.Effect>
+                                        <BlurEffect Radius="0.2"/>
+                                    </Image.Effect>
+                                </Image>
+                            </Button>
+                            <Button Style="{StaticResource ButtonScreen}"  VerticalAlignment="Bottom">
+                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Next.png">
+                                    <Image.Effect>
+                                        <BlurEffect Radius="0.2"/>
+                                    </Image.Effect>
+                                </Image>
+                            </Button>
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+                
+                <Grid Grid.Column="1"  Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="290"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Border Background="Transparent" BorderBrush="White" BorderThickness="1"/>
+                    <Image Grid.Row="0" Source="/Source/Samples/Screen.png" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="1" />
+
+                    <Grid Grid.Row="0" x:Name="ScreenDesktop" Margin="50,19,0,43" RenderTransformOrigin="0.491,0.564"  >
+                        <Polygon x:Name="HotTrackingColorPolygon" Fill="Transparent" StrokeThickness="1" Points="0,8,0,190,190,190,190,8" Stroke="#0078D7"  Opacity="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Polygon x:Name="HilightPolygon" Fill="#0078D7" StrokeThickness="0" Points="0,8,0,190,190,190,190,8" Stroke="#0066CC"  Opacity="0.5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image Source="/Source/Other/Cursor.png" Width="10" Height="10" Margin="23,210,207,8"  />
+                    </Grid>
+                    
+                    <Grid x:Name="NextScreenBtnGrid" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        
+                        <Separator Grid.Row="0" Margin="5" Height="2" Background="White" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="0" Text="Screens" TextDecorations="Underline" Foreground="White" FontWeight="Medium" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource ButtonScreen}" VerticalAlignment="Bottom" Width="40" Height="20">
+                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Back.png">
+                                    <Image.Effect>
+                                        <BlurEffect Radius="0.2"/>
+                                    </Image.Effect>
+                                </Image>
+                            </Button>
+                            <Button Style="{StaticResource ButtonScreen}"  VerticalAlignment="Bottom">
+                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Next.png">
+                                    <Image.Effect>
+                                        <BlurEffect Radius="0.2"/>
+                                    </Image.Effect>
+                                </Image>
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" x:Name="NameVersionTB" Foreground="White" Opacity="0.3" Text="Version 0.1" FontSize="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5"/>
+                    </Grid>
 
                 </Grid>
 
