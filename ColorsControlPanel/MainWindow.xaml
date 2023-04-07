@@ -1,0 +1,70 @@
+﻿<Window x:Class="ColorsControlPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ColorsControlPanel"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Border Background="#2C2F36" MouseDown="Border_MouseDown" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" x:Name="ToolBarGrid" Background="#292b2f">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource ButtonToolBar}">
+                        <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Minimize.png" >
+                            <Image.Effect>
+                                <BlurEffect Radius="0.2"/>
+                            </Image.Effect>
+                        </Image>
+                    </Button>
+                    <Button Style="{StaticResource ButtonToolBar}">
+                        <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Maximize.png">
+                            <Image.Effect>
+                                <BlurEffect Radius="0.2"/>
+                            </Image.Effect>
+                        </Image>
+                    </Button>
+                    <Button Style="{StaticResource ButtonToolBar}">
+                        <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Close.png" >
+                            <Image.Effect>
+                                <BlurEffect Radius="0.2"/>
+                            </Image.Effect>
+                        </Image>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="ColorPanelControl" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Medium" Margin="5"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <xctk:ColorCanvas  Width="240" x:Name="CV" UsingAlphaChannel="False" Background="#17181C" Foreground="White"/>
+                </Grid>
+                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                    <Image Source="/Source/Samples/Screen.png"/>
+                    <Grid x:Name="BoxColor" Margin="71,100,30,111" >
+                        <Polygon Fill="Black" StrokeThickness="1" Points="0,8,0,190,190,190,190,8" Stroke="Black" Opacity="0.5"/>
+                        <Polygon Fill="#292b2f" StrokeThickness="0" Points="0,8,0,190,190,190,190,8" Stroke="Black"  Opacity="0.5"/>
+                        <Image Source="/Source/Other/cursor.png" Width="12" Height="12" Margin="-2,191,189,6" />
+                    </Grid>
+
+
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
