@@ -105,6 +105,9 @@ namespace ColorsControlPanel
                 RegisterRead.ColorWrite("HotTrackingColor", DefaultHotTrackingColor);
                 MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
                 //Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+
+                RectangleColorsLoad("Hilight");
+                RectangleColorsLoad("HotTrackingColor");
             };
 
             // other
