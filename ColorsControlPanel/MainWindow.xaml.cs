@@ -82,6 +82,16 @@ namespace ColorsControlPanel
                     MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
                     // Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
                 }
+                else if(ChangeHilightBtn != null)
+                {
+                    RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
+                    MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+                else if (ChangeHotTrackingColorBtn != null)
+                {
+                    RegisterRead.ColorWrite("HotTrackingColor", ChangeHotTrackingColorBtn);
+                    MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
                 else
                 {
                     MessageBox.Show("Ones are equal.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
