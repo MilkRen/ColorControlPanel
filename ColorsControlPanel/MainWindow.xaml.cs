@@ -18,8 +18,8 @@ namespace ColorsControlPanel
        static byte[] DefaultHilight = { 0, 120, 215 };
        static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
 
-       static byte[] ChangeHilightBtn = DefaultHilight;
-       static byte[] ChangeHotTrackingColorBtn = DefaultHotTrackingColor;
+        static byte[] ChangeHilightBtn;
+        static byte[] ChangeHotTrackingColorBtn;
 
         public MainWindow()
         {
@@ -75,10 +75,17 @@ namespace ColorsControlPanel
 
             SaveChangeColorBtn.Click += (s, e) =>
             {
-                RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
-                RegisterRead.ColorWrite("HotTrackingColor", ChangeHotTrackingColorBtn);
-                //MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
-                Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+                if (ChangeHilightBtn != null & ChangeHotTrackingColorBtn != null)
+                {
+                    RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
+                    RegisterRead.ColorWrite("HotTrackingColor", ChangeHotTrackingColorBtn);
+                    MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                    // Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Ones are equal.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
 
             };
 
@@ -86,7 +93,8 @@ namespace ColorsControlPanel
             {
                 RegisterRead.ColorWrite("Hilight", DefaultHilight);
                 RegisterRead.ColorWrite("HotTrackingColor", DefaultHotTrackingColor);
-                Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+                MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                //Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
             };
 
             // other
