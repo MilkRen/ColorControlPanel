@@ -5,10 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Source\Logo.ico</ApplicationIcon>
+    <PackageIcon>Logo.png</PackageIcon>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Source\Logo.png" />
     <None Remove="Source\Other\Back.png" />
     <None Remove="Source\Other\cursor.png" />
     <None Remove="Source\Other\Next.png" />
@@ -20,6 +23,10 @@
     <None Remove="Source\ToolBar\Close.png" />
     <None Remove="Source\ToolBar\Maximize.png" />
     <None Remove="Source\ToolBar\Minimize.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Source\Logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +70,13 @@
     <Resource Include="Source\ToolBar\Minimize.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Source\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

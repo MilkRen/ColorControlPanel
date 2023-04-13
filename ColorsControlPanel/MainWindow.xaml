@@ -23,13 +23,6 @@
                             </Image.Effect>
                         </Image>
                     </Button>
-                    <Button x:Name="MaximizeBtn" Style="{StaticResource ButtonToolBar}">
-                        <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Maximize.png">
-                            <Image.Effect>
-                                <BlurEffect Radius="0.2"/>
-                            </Image.Effect>
-                        </Image>
-                    </Button>
                     <Button x:Name="CloseBtn" Style="{StaticResource ButtonToolBar}">
                         <Image Style="{StaticResource ImageToolBar}" Source="/Source/ToolBar/Close.png" >
                             <Image.Effect>
@@ -45,16 +38,16 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" x:Name="MainGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" Margin="5">
+                <Grid Grid.Column="0" Margin="5" x:Name="ColorSettings">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="290"/>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="120"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     
@@ -75,58 +68,55 @@
                     </TextBlock>
 
                     <Grid Grid.Row="1" x:Name="MainBtnGrid">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="HilightBtn" Style="{StaticResource ButtonSamplesAndMain}" Content="Hilight" />
-                            <Button x:Name="HotTrackingColorBtn" Style="{StaticResource ButtonSamplesAndMain}" Content="HotTrackingColor"/>
-                        </StackPanel>
-                    </Grid>
-                    
-                    <Grid x:Name="SamplesBtnGrid" Grid.Row="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="45"/>
-                            <RowDefinition />
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-
-                        <Separator Grid.Row="0" Margin="5" Height="2" Background="White" VerticalAlignment="Top"/>
-                        <TextBlock Grid.Row="0" Text="Samples" TextDecorations="Underline" Foreground="White" FontWeight="Medium" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource ButtonScreen}" VerticalAlignment="Bottom" Width="40" Height="20">
-                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Back.png">
-                                    <Image.Effect>
-                                        <BlurEffect Radius="0.2"/>
-                                    </Image.Effect>
-                                </Image>
+                        
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="HilightBtn" Style="{StaticResource ButtonColors}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle x:Name="HilightColorRectangle" StrokeThickness="1" Stroke="White" Width="15" Height="15" Fill="White" VerticalAlignment="Center"  HorizontalAlignment="Center" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Hilight"/>
+                                </StackPanel>
                             </Button>
-                            <Button Style="{StaticResource ButtonScreen}"  VerticalAlignment="Bottom">
-                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Next.png">
-                                    <Image.Effect>
-                                        <BlurEffect Radius="0.2"/>
-                                    </Image.Effect>
-                                </Image>
+                            <Button x:Name="HotTrackingColorBtn" Style="{StaticResource ButtonColors}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle x:Name="HotTrackingColorRectangle" Width="15" Height="15" StrokeThickness="1" Stroke="White"  Fill="White" VerticalAlignment="Center"  HorizontalAlignment="Center" Margin="0,0,5,0"/>
+                                    <TextBlock Text="HotTrackingColor"/>
+                                </StackPanel>
                             </Button>
                         </StackPanel>
 
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="SaveChangeColorBtn" Style="{StaticResource ButtonSamples}" Content="Save change Hilight/HotTrackingColor" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:Name="DefaultChangeColorBtn" Style="{StaticResource ButtonSamples}" Content="Default change Hilight/HotTrackingColor" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
+
+                    
                 </Grid>
                 
-                <Grid Grid.Column="1"  Margin="5">
+                <Grid Grid.Column="1"  Margin="5" x:Name="ScreenView">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="290"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Border Background="Transparent" BorderBrush="White" BorderThickness="1"/>
-                    <Image Grid.Row="0" Source="/Source/Samples/Screen.png" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="1" />
+                    <Image x:Name="ScreenImg" Grid.Row="0" Source="/Source/Samples/Screen.png" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="1" />
 
                     <Grid Grid.Row="0" x:Name="ScreenDesktop" Margin="50,19,0,43" RenderTransformOrigin="0.491,0.564"  >
-                        <Polygon x:Name="HotTrackingColorPolygon" Fill="Transparent" StrokeThickness="1" Points="0,8,0,190,190,190,190,8" Stroke="#0078D7"  Opacity="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <Polygon x:Name="HilightPolygon" Fill="#0078D7" StrokeThickness="0" Points="0,8,0,190,190,190,190,8" Stroke="#0066CC"  Opacity="0.5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Polygon x:Name="HilightPolygon" Fill="Transparent" StrokeThickness="1" Points="0,8,0,190,190,190,190,8" Stroke="#0078D7"  Opacity="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Polygon x:Name="HotTrackingColorPolygon" Fill="#0078D7" StrokeThickness="0" Points="0,8,0,190,190,190,190,8" Stroke="#0066CC"  Opacity="0.3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Image Source="/Source/Other/Cursor.png" Width="10" Height="10" Margin="23,210,207,8"  />
                     </Grid>
-                    
-                    <Grid x:Name="NextScreenBtnGrid" Grid.Row="1">
+
+                    <Grid x:Name="ScreenBtnGrid" Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="45"/>
@@ -137,17 +127,17 @@
                         <TextBlock Grid.Row="0" Text="Screens" TextDecorations="Underline" Foreground="White" FontWeight="Medium" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         
                         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource ButtonScreen}" VerticalAlignment="Bottom" Width="40" Height="20">
-                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Back.png">
+                            <Button x:Name="BackScreenBtn" Style="{StaticResource ButtonScreen}" VerticalAlignment="Bottom" >
+                                <Image Style="{StaticResource ImageScreen}" Source="/Source/Other/Back.png">
                                     <Image.Effect>
-                                        <BlurEffect Radius="0.2"/>
+                                        <BlurEffect Radius="0.1"/>
                                     </Image.Effect>
                                 </Image>
                             </Button>
-                            <Button Style="{StaticResource ButtonScreen}"  VerticalAlignment="Bottom">
-                                <Image Style="{StaticResource ImageToolBar}" Source="/Source/Other/Next.png">
+                            <Button x:Name="NextScreenBtn" Style="{StaticResource ButtonScreen}"  VerticalAlignment="Bottom">
+                                <Image Style="{StaticResource ImageScreen}" Source="/Source/Other/Next.png">
                                     <Image.Effect>
-                                        <BlurEffect Radius="0.2"/>
+                                        <BlurEffect Radius="0.1"/>
                                     </Image.Effect>
                                 </Image>
                             </Button>

@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using ColorsControlPanel.Register;
+using System;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 
 
 namespace ColorsControlPanel
@@ -22,11 +15,39 @@ namespace ColorsControlPanel
     /// </summary>
     public partial class MainWindow : Window
     {
+       static byte[] DefaultHilight = { 0, 120, 215 };
+       static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
+
+       static byte[] ChangeHilightBtn = DefaultHilight;
+       static byte[] ChangeHotTrackingColorBtn = DefaultHotTrackingColor;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            // Screens buttons
+            string[] pathImg = {"/Source/Samples/Screen.png", "/Source/Samples/Screen2.png", "/Source/Samples/Screen3.png", "/Source/Samples/Screen4.png", "/Source/Samples/Screen5.png" };
+            sbyte countPathImg = 0;
+      
+            BackScreenBtn.Click += (s, e) =>
+            {
+                if (countPathImg >= 1)
+                {
+                    countPathImg--;
+                    ScreenImg.Source = new BitmapImage(new Uri(pathImg[countPathImg], UriKind.Relative));
+                }
+            };
 
+            NextScreenBtn.Click += (s, e) =>
+            {
+                if (countPathImg <= 3)
+                {
+                    countPathImg++;
+                    ScreenImg.Source = new BitmapImage(new Uri(pathImg[countPathImg], UriKind.Relative));
+                }
+            };
+
+            // ToolBar
             CloseBtn.Click += (s, e) =>
             {
                 Application.Current.Shutdown();
@@ -37,19 +58,48 @@ namespace ColorsControlPanel
                 this.WindowState = WindowState.Minimized;
             };
 
+            // ColorCanvas buttons
+            HilightBtn.Click += (s, e) =>
+            {
+                HilightColorRectangle.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B));
+                HilightPolygon.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B));
+                ChangeHilightBtn = new byte[]{MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B };
+            };
 
+            HotTrackingColorBtn.Click += (s, e) =>
+            {
+                HotTrackingColorRectangle.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B));
+                HotTrackingColorPolygon.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B));
+                ChangeHotTrackingColorBtn = new byte[]{MainColorCanvas.R, MainColorCanvas.G, MainColorCanvas.B };
+            };
 
+            SaveChangeColorBtn.Click += (s, e) =>
+            {
+                RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
+                RegisterRead.ColorWrite("HotTrackingColor", ChangeHotTrackingColorBtn);
+                //MessageBox.Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK, MessageBoxImage.Question);
+                Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+
+            };
+
+            DefaultChangeColorBtn.Click += (s, e) =>
+            {
+                RegisterRead.ColorWrite("Hilight", DefaultHilight);
+                RegisterRead.ColorWrite("HotTrackingColor", DefaultHotTrackingColor);
+                Show("Please restart your computer to see the results.", "ColorPanelControl", MessageBoxButton.OK);
+            };
+
+            // other
             ColorCanvasRun();
 
+            RectangleColorsLoad("Hilight");
+            RectangleColorsLoad("HotTrackingColor");
 
-            string hex = "#FFFFFF";
-            var color = ColorTranslator.FromHtml(hex);
-            //tb1.Text = $"R: {color.R} G: {color.B} B: {color.G}";
             MainColorCanvas.SelectedColor = Colors.Black;
             NameVersionTB.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
-
-
         }
+
+ 
 
         async void ColorCanvasRun()
         {
@@ -59,27 +109,42 @@ namespace ColorsControlPanel
                 {
                     this.Dispatcher.Invoke(() =>
                     {
-                        // HilightPolygon.Fill = MainColorCanvas.SelectedColor.Value;
+                        InputRGBTB.Text = $"({MainColorCanvas.R}, {MainColorCanvas.G}, {MainColorCanvas.B})";
                     });
                 }
             });
-
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        void RectangleColorsLoad(string valueName)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            string RGBvalue = RegisterRead.ColorRead(valueName);
+            string[] RGBvalueArray = RGBvalue.Split();
+            
+            if(valueName == "Hilight")
             {
-                this.DragMove();
+                HilightColorRectangle.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(byte.Parse(RGBvalueArray[0]), byte.Parse(RGBvalueArray[1]), byte.Parse(RGBvalueArray[2])));
+                HilightPolygon.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(byte.Parse(RGBvalueArray[0]), byte.Parse(RGBvalueArray[1]), byte.Parse(RGBvalueArray[2])));
             }
+            else
+            {
+                HotTrackingColorRectangle.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(byte.Parse(RGBvalueArray[0]), byte.Parse(RGBvalueArray[1]), byte.Parse(RGBvalueArray[2])));
+                HotTrackingColorPolygon.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(byte.Parse(RGBvalueArray[0]), byte.Parse(RGBvalueArray[1]), byte.Parse(RGBvalueArray[2])));
+            }
+        }
+
+        public static MessageBoxResult Show(string message, string title, MessageBoxButton buttons)
+        {
+            var dialog = new CustomMessageBox() { Title = title };
+            dialog.MessageContainer.Text = message;
+            dialog.AddButtons(buttons);
+            dialog.ShowDialog();
+            return dialog.Result;
         }
 
         private void ToolBarGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-            {
                 this.DragMove();
-            }
         }
     }
 }
