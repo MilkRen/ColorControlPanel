@@ -15,8 +15,8 @@ namespace ColorsControlPanel
     /// </summary>
     public partial class MainWindow : Window
     {
-       static byte[] DefaultHilight = { 0, 120, 215 };
-       static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
+        static byte[] DefaultHilight = { 0, 120, 215 };
+        static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
 
         static byte[] ChangeHilightBtn;
         static byte[] ChangeHotTrackingColorBtn;
@@ -111,29 +111,11 @@ namespace ColorsControlPanel
             };
 
             // other
-            ColorCanvasRun();
-
             RectangleColorsLoad("Hilight");
             RectangleColorsLoad("HotTrackingColor");
 
             MainColorCanvas.SelectedColor = Colors.Black;
             NameVersionTB.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
-        }
-
- 
-
-        async void ColorCanvasRun()
-        {
-            await Task.Run(() =>
-            {
-                while (true)
-                {
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        InputRGBTB.Text = $"({MainColorCanvas.R}, {MainColorCanvas.G}, {MainColorCanvas.B})";
-                    });
-                }
-            });
         }
 
         void RectangleColorsLoad(string valueName)
@@ -166,6 +148,11 @@ namespace ColorsControlPanel
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }       
+
+        private void MainColorCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            InputRGBTB.Text = $"({MainColorCanvas.R}, {MainColorCanvas.G}, {MainColorCanvas.B})";
         }
     }
 }

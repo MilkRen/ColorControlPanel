@@ -51,7 +51,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     
-                    <xctk:ColorCanvas Grid.Row="0" x:Name="MainColorCanvas" UsingAlphaChannel="False" Background="#17181C" Foreground="White" BorderThickness="1" BorderBrush="White" />
+                    <xctk:ColorCanvas Grid.Row="0" x:Name="MainColorCanvas" UsingAlphaChannel="False" Background="#17181C" Foreground="White" BorderThickness="1" BorderBrush="White" PreviewMouseMove="MainColorCanvas_PreviewMouseMove" />
                     <!--TextBox Grid.Row="0" Background="Transparent" Foreground="White" BorderThickness="0" Margin="109,134,84,134" VerticalAlignment="Center"/-->
                     <TextBox x:Name="InputRGBTB" Background="Transparent" Margin="109,134,87,134" VerticalAlignment="Center" Foreground="#f3f1f1" BorderBrush="Transparent"/>
                     <TextBlock IsHitTestVisible="False"  FontSize="16" Margin="109,134,87,134" VerticalAlignment="Center" >
