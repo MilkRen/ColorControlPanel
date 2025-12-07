@@ -1,51 +1,50 @@
-﻿<Application x:Class="ColorsControlPanel.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ColorsControlPanel"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="ColorsControlPanel.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ColorsControlPanel"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+
         <Style x:Key="ButtonToolBar" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Template" >
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"  >
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1B1C1F"/>
+                    <Setter Property="Background" Value="#1B1C1F" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="ImageToolBar" TargetType="Image">
-            <Setter Property="Width" Value="15"/>
-            <Setter Property="Height" Value="15"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Width" Value="15" />
+            <Setter Property="Height" Value="15" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         </Style>
 
-        
-        
         <Style x:Key="ButtonScreen" TargetType="Button">
-            <Setter Property="Background" Value="#202227"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Margin" Value="10 0 10 0"/>
-            <Setter Property="Template" >
+            <Setter Property="Background" Value="#202227" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5" >
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -53,34 +52,32 @@
 
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0F1012"/>
-                    <Setter Property="Opacity" Value="0.8"/>
+                    <Setter Property="Background" Value="#0F1012" />
+                    <Setter Property="Opacity" Value="0.8" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="ImageScreen" TargetType="Image">
-            <Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         </Style>
 
-
-        
         <Style x:Key="ButtonColors" TargetType="Button">
-            <Setter Property="Background" Value="#202227"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="130"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Template" >
+            <Setter Property="Background" Value="#202227" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Width" Value="130" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5" >
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -88,26 +85,26 @@
 
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0F1012"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Opacity" Value="0.8"/>
+                    <Setter Property="Background" Value="#0F1012" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Opacity" Value="0.8" />
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="ButtonSamples" TargetType="Button">
-            <Setter Property="Background" Value="#202227"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Margin" Value="10 0 10 0"/>
-            <Setter Property="Template" >
+            <Setter Property="Background" Value="#202227" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5" >
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -115,12 +112,12 @@
 
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0F1012"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Opacity" Value="0.8"/>
+                    <Setter Property="Background" Value="#0F1012" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Opacity" Value="0.8" />
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
     </Application.Resources>
 </Application>

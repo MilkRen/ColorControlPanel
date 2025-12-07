@@ -5,9 +5,6 @@ using System.Windows.Input;
 
 namespace ColorsControlPanel
 {
-    /// <summary>
-    /// Логика взаимодействия для CustomMessageBox.xaml
-    /// </summary>
     public partial class CustomMessageBox : Window
     {
         public CustomMessageBox()
@@ -24,6 +21,8 @@ namespace ColorsControlPanel
 
         }
 
+        public MessageBoxResult Result = MessageBoxResult.None;
+
         public void AddButton(string text, MessageBoxResult result, bool isCancel = false)
         {
             var button = new Button() { Content = text, IsCancel = isCancel };
@@ -31,7 +30,6 @@ namespace ColorsControlPanel
             ButtonContainer.Children.Add(button);
         }
 
-        public MessageBoxResult Result = MessageBoxResult.None;
         public void AddButtons(MessageBoxButton buttons)
         {
             switch (buttons)

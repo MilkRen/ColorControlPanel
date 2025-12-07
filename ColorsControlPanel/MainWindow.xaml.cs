@@ -1,25 +1,23 @@
 ﻿using ColorsControlPanel.Register;
 using System;
 using System.Reflection;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-
 namespace ColorsControlPanel
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Главная форма
     /// </summary>
     public partial class MainWindow : Window
     {
-        static byte[] DefaultHilight = { 0, 120, 215 };
-        static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
-
-        static byte[] ChangeHilightBtn;
-        static byte[] ChangeHotTrackingColorBtn;
+        private static byte[] DefaultHilight = { 0, 120, 215 };
+        private static byte[] DefaultHotTrackingColor = { 0, 102, 204 };
+        private static byte[] ChangeHilightBtn;
+        private static byte[] ChangeHotTrackingColorBtn;
 
         public MainWindow()
         {
@@ -75,6 +73,7 @@ namespace ColorsControlPanel
 
             SaveChangeColorBtn.Click += (s, e) =>
             {
+                WinApi.NotifyWinIniChange("Colors");
                 if (ChangeHilightBtn != null & ChangeHotTrackingColorBtn != null)
                 {
                     RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
@@ -118,7 +117,7 @@ namespace ColorsControlPanel
             NameVersionTB.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
         }
 
-        void RectangleColorsLoad(string valueName)
+        private void RectangleColorsLoad(string valueName)
         {
             string RGBvalue = RegisterRead.ColorRead(valueName);
             string[] RGBvalueArray = RGBvalue.Split();

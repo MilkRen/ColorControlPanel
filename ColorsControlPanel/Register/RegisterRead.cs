@@ -2,16 +2,20 @@
 
 namespace ColorsControlPanel.Register
 {
-    class RegisterRead
+    /// <summary>
+    /// Чтение данных с регистра 
+    /// </summary>
+    public class RegisterRead
     {
-        const string registryPath = @"HKEY_CURRENT_USER\Control Panel\Colors";
+        private const string _registryPath = @"HKEY_CURRENT_USER\Control Panel\Colors";
+
         public static string ColorRead(string Name)
         {
             // Имя значения, которое нужно прочитать
             string valueName = Name;
 
             // Чтение значения из реестра
-            string hilightValue = (string)Registry.GetValue(registryPath, valueName, null);
+            string hilightValue = (string)Registry.GetValue(_registryPath, valueName, null);
 
             return hilightValue;
         }
@@ -22,9 +26,7 @@ namespace ColorsControlPanel.Register
             string valueData = $"{value[0]} {value[1]} {value[2]}"; // Значение, которое нужно записать
 
             // Запись значения в регистр
-            Registry.SetValue(registryPath, valueName, valueData, RegistryValueKind.String);
-
+            Registry.SetValue(_registryPath, valueName, valueData, RegistryValueKind.String);
         }
-
     }
 }
