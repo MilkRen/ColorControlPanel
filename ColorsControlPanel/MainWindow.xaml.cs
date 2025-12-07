@@ -73,7 +73,6 @@ namespace ColorsControlPanel
 
             SaveChangeColorBtn.Click += (s, e) =>
             {
-                WinApi.NotifyWinIniChange("Colors");
                 if (ChangeHilightBtn != null & ChangeHotTrackingColorBtn != null)
                 {
                     RegisterRead.ColorWrite("Hilight", ChangeHilightBtn);
